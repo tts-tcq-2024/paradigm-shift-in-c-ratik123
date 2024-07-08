@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include <assert.h>
 
 bool isMeasureTooLow(const char* measureName, float measureValue, float lowerLimit) {
     if (measureValue < lowerLimit) {
@@ -30,27 +31,14 @@ bool batteryIsOk(float temperature, float soc, float chargeRate) {
 }
 
 void runTests() {
-    if (batteryIsOk(25, 70, 0.7f) != true) {
-        printf("Test 1 failed\n");
-    }
+    // Test cases
+    assert(batteryIsOk(25, 70, 0.7f) == true);
+    assert(batteryIsOk(50, 85, 0.0f) == false);
+    assert(batteryIsOk(-1, 70, 0.7f) == false);
+    assert(batteryIsOk(25, 10, 0.7f) == false);
+    assert(batteryIsOk(25, 70, 0.9f) == false);
 
-    if (batteryIsOk(50, 85, 0.0f) != false) {
-        printf("Test 2 failed\n");
-    }
-
-    if (batteryIsOk(-1, 70, 0.7f) != false) {
-        printf("Test 3 failed\n");
-    }
-
-    if (batteryIsOk(25, 10, 0.7f) != false) {
-        printf("Test 4 failed\n");
-    }
-
-    if (batteryIsOk(25, 70, 0.9f) != false) {
-        printf("Test 5 failed\n");
-    }
-
-    printf("Some more tests needed\n");
+    printf("All tests passed!\n");
 }
 
 int main() {
